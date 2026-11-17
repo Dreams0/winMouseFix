@@ -2,7 +2,7 @@
 
 <img src="docs/icon.png" width="96" height="96" alt="winMouseFix" />
 
-<h1>winMouseFix - 让Windows下拥有Macos中的触控板级滑动体验</h1>
+<h1>winMouseFix </br> 让Windows下拥有Macos中的触控板级滑动体验</h1>
 
 <p><i>A lightweight, speed-aware smooth-scrolling enhancer for Windows.</i></p>
 
