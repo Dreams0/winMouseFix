@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="zh-CN" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>winMouseFix V1.0 · 让滚轮拥有触控板的丝滑与惯性</title>
+  <meta name="description" content="winMouseFix 是一款轻量的 Windows 滚轮平滑与惯性增强工具。速度自适应、持续加速、智能粒度，单文件约 388 KB，开源 MIT。">
+  <meta name="author" content="Dreams0">
+  <meta name="theme-color" content="#faf5ea">
+  <link rel="icon" href="icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="canonical" href="https://dreams0.github.io/winMouseFix/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="winMouseFix">
+  <meta property="og:title" content="winMouseFix V1.0 · 让滚轮拥有触控板的丝滑与惯性">
+  <meta property="og:description" content="速度自适应、持续加速、智能粒度的 Windows 滚轮增强引擎。单文件约 388 KB，开源 MIT。">
+  <meta property="og:url" content="https://dreams0.github.io/winMouseFix/">
+  <meta property="og:image" content="https://dreams0.github.io/winMouseFix/preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="winMouseFix V1.0 · 丝滑滚轮">
+  <meta name="twitter:description" content="让鼠标滚轮拥有触控板般的丝滑与惯性。">
+  <meta name="twitter:image" content="https://dreams0.github.io/winMouseFix/preview.png">
+  <script>document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');</script>
+  <script>window.addEventListener('load', function () { if (!window.__wmfReady) document.documentElement.classList.remove('js'); });</script>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient-orb orb-one"></div>
+    <div class="ambient-orb orb-two"></div>
+    <div class="ambient-orb orb-three"></div>
+    <div class="ambient-grid"></div>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="nav-inner container">
+      <a class="brand" href="#top" aria-label="winMouseFix 首页">
+        <span class="brand-badge"><img src="icon.png" width="34" height="34" alt=""></span>
+        <span class="brand-name">winMouseFix</span>
+        <span class="brand-version">V1.0</span>
+      </a>
+
+      <nav class="nav-links" id="primaryNav" aria-label="主导航">
+        <a href="#features">特性</a>
+        <a href="#demo">演示</a>
+        <a href="#how">原理</a>
+        <a href="#showcase">界面</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="nav-external" href="https://github.com/Dreams0/winMouseFix" target="_blank" rel="noopener">
+          GitHub
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </a>
+        <a class="btn btn-primary btn-sm" href="https://github.com/Dreams0/winMouseFix/releases">
+          下载 <span>V1.0</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
+        </a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="打开菜单" aria-expanded="false" aria-controls="primaryNav">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow reveal">WINDOWS &nbsp;·&nbsp; SINGLE EXE &nbsp;·&nbsp; OPEN SOURCE</div>
+          <h1 class="hero-title">
+            <span class="hero-line reveal" style="--delay: .08s">让每一次滚动</span>
+            <span class="hero-line gradient reveal" style="--delay: .16s">都像触控板一样自然。</span>
+          </h1>
+          <p class="hero-sub reveal" style="--delay: .24s">
+            winMouseFix V1.0 是一款轻量的滚轮增强引擎。速度自适应、持续加速、智能粒度——
+            慢滚精准，快滑带感，持续快滑还会一路提速。
+          </p>
+          <div class="hero-cta reveal" style="--delay: .32s">
+            <a class="btn btn-primary btn-lg" href="https://github.com/Dreams0/winMouseFix/releases">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="btn-icon"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
+              下载 V1.0
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/Dreams0/winMouseFix" target="_blank" rel="noopener">
+              查看源码
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="btn-icon"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+          <div class="hero-meta reveal" style="--delay: .4s">
+            <span class="meta-item"><i class="meta-dot"></i>Windows 10 / 11</span>
+            <span class="meta-item">约 388 KB</span>
+            <span class="meta-item">MIT License</span>
+            <span class="meta-item">by <a href="https://github.com/Dreams0" target="_blank" rel="noopener">Dreams0</a></span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" id="heroVisual" style="--delay: .18s">
+          <div class="hero-aura" aria-hidden="true"></div>
+          <div class="stage" id="heroStage" data-tilt>
+            <div class="stage-bar">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <span class="stage-bar-title">smooth-scroll engine</span>
+              <span class="stage-live"><i></i>LIVE</span>
+            </div>
+            <div class="stage-screen">
+              <div class="ghost-track" aria-hidden="true">
+                <div class="ghost-half">
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 58%"></b><i style="width: 82%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 74%"></b><i style="width: 62%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 46%"></b><i style="width: 76%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 66%"></b><i style="width: 90%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 52%"></b><i style="width: 70%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 80%"></b><i style="width: 56%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 62%"></b><i style="width: 84%"></i></span><span class="ghost-chip"></span></div>
+                </div>
+                <div class="ghost-half ghost-half-copy">
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 58%"></b><i style="width: 82%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 74%"></b><i style="width: 62%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 46%"></b><i style="width: 76%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 66%"></b><i style="width: 90%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 52%"></b><i style="width: 70%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 80%"></b><i style="width: 56%"></i></span><span class="ghost-chip"></span></div>
+                  <div class="ghost-row"><span class="ghost-avatar"></span><span class="ghost-lines"><b style="width: 62%"></b><i style="width: 84%"></i></span><span class="ghost-chip"></span></div>
+                </div>
+              </div>
+              <div class="screen-mask"></div>
+              <div class="core">
+                <div class="core-rings"><span></span><span></span><span></span></div>
+                <img src="icon.png" width="112" height="112" alt="" class="core-icon">
+              </div>
+              <div class="stage-tag tag-speed">speed <span>→</span> inertia</div>
+              <div class="stage-tag tag-accel">+400%</div>
+              <div class="stage-tag tag-precision">亚格步长</div>
+            </div>
+            <div class="stage-foot">
+              <div class="stage-meter"><span>SPEED</span><div class="meter-track"><i class="meter-fill meter-speed"></i></div></div>
+              <div class="stage-meter"><span>INERTIA</span><div class="meter-track"><i class="meter-fill meter-inertia"></i></div></div>
+              <span class="stage-pill">SMOOTH</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#features" aria-label="向下浏览"><span></span></a>
+    </section>
+
+    <section class="stats-band" aria-label="核心数据">
+      <div class="container stats-grid">
+        <div class="stat reveal">
+          <span class="stat-num" data-count="388" data-prefix="~" data-suffix=" KB">~388 KB</span>
+          <span class="stat-label">单文件体积 · 静态链接</span>
+        </div>
+        <div class="stat reveal" style="--delay: .08s">
+          <span class="stat-num" data-count="4" data-suffix=" ms">4 ms</span>
+          <span class="stat-label">平滑调度节拍</span>
+        </div>
+        <div class="stat reveal" style="--delay: .16s">
+          <span class="stat-num" data-count="250" data-suffix=" Hz">250 Hz</span>
+          <span class="stat-label">滚轮输出频率</span>
+        </div>
+        <div class="stat reveal" style="--delay: .24s">
+          <span class="stat-num" data-count="400" data-prefix="+" data-suffix="%">+400%</span>
+          <span class="stat-label">持续加速上限</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow reveal">01 / FEATURES</span>
+          <h2 class="section-title reveal" style="--delay: .06s">把每一次滚动，<span class="gradient">做成手感</span></h2>
+          <p class="section-sub reveal" style="--delay: .12s">从速度模型到输出粒度，每一层都为自然滚动而设计。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/><circle cx="12" cy="17" r="1"/></svg>
+            </div>
+            <span class="feature-kicker">DYNAMIC INERTIA</span>
+            <h3>速度自适应</h3>
+            <p>慢滚精准停住，快滑自然滑行。滚动速度决定惯性大小，手指想停，视野就停。</p>
+            <div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </article>
+
+          <article class="feature-card reveal" style="--delay: .08s">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l5-7 4 4 7-9"/><path d="M15 5h5v5"/></svg>
+            </div>
+            <span class="feature-kicker">SUSTAINED BOOST</span>
+            <h3>持续加速</h3>
+            <p>连续快速滚动会逐步提速，最高 +400%；慢下来时立即回到精准的 1:1 滚动。</p>
+            <span class="feature-chip">+400%</span>
+          </article>
+
+          <article class="feature-card reveal" style="--delay: .16s">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="10" rx="2"/><path d="M4 12h16M8 7v10"/></svg>
+            </div>
+            <span class="feature-kicker">SMART QUANTUM</span>
+            <h3>智能粒度</h3>
+            <p>Chromium / Electron 使用亚格细腻步长，传统程序使用整格输出，顺滑与兼容兼顾。</p>
+            <div class="feature-pills"><span>1 unit</span><span>120 units</span></div>
+          </article>
+
+          <article class="feature-card reveal" style="--delay: .24s">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M7 8l-3 4 3 4M17 8l3 4-3 4"/></svg>
+            </div>
+            <span class="feature-kicker">HORIZONTAL AXIS</span>
+            <h3>水平滚轮</h3>
+            <p>Shift + 滚轮或倾斜滚轮同样拥有平滑手感，横向浏览也保持自然。</p>
+            <span class="feature-chip feature-chip-muted">Shift + Scroll</span>
+          </article>
+
+          <article class="feature-card reveal" style="--delay: .32s">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+            </div>
+            <span class="feature-kicker">FULLSCREEN MODE</span>
+            <h3>全屏选择</h3>
+            <p>“全屏应用/游戏下关闭平滑”让全屏游戏与视频保持系统原生滚动，随时切换。</p>
+            <span class="feature-chip feature-chip-muted">原生滚动选项</span>
+          </article>
+
+          <article class="feature-card reveal" style="--delay: .4s">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16l-6 7v5l-4 2v-7L4 6z"/></svg>
+            </div>
+            <span class="feature-kicker">PER-APP FEEL</span>
+            <h3>排除名单</h3>
+            <p>为特定程序保留原生滚轮手感。把习惯留给应用，把定制留给自己。</p>
+            <div class="feature-pills"><span>chrome</span><span>DingTalk</span></div>
+          </article>
+        </div>
+
+        <div class="detail-strip reveal" style="--delay: .1s">
+          <div class="detail-item"><span class="detail-icon">◎</span><span><b>托盘常驻</b><small>随时启用、暂停或重启</small></span></div>
+          <div class="detail-item"><span class="detail-icon">⟳</span><span><b>开机自启</b><small>登录后静默进入托盘</small></span></div>
+          <div class="detail-item"><span class="detail-icon">⌘</span><span><b>Ctrl + 滚轮</b><small>缩放等原生操作保持不变</small></span></div>
+          <div class="detail-item"><span class="detail-icon">✦</span><span><b>单文件</b><small>复制即用，无需安装运行库</small></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section demo-section" id="demo">
+      <div class="container demo-grid">
+        <div class="demo-copy">
+          <span class="eyebrow reveal">02 / LIVE DEMO</span>
+          <h2 class="section-title reveal" style="--delay: .06s">手感<span class="gradient">实验室</span></h2>
+          <p class="section-sub reveal" style="--delay: .12s">
+            在演示窗口里滚动鼠标滚轮，或点击按钮让演示自动滚动。速度越快，距离与滑行越明显。
+          </p>
+
+          <div class="demo-controls reveal" style="--delay: .18s">
+            <button class="btn btn-ghost" id="demoSlow" type="button">慢速演示</button>
+            <button class="btn btn-ghost" id="demoFast" type="button">快速演示</button>
+            <button class="text-btn" id="demoReset" type="button">重置</button>
+          </div>
+
+          <div class="hud reveal" style="--delay: .24s">
+            <div class="hud-head"><span>ENGINE</span><span class="hud-live"><i></i>SMOOTH</span></div>
+            <div class="hud-row"><span class="hud-label">速度因子</span><div class="hud-track"><i id="speedBar"></i></div><b id="speedValue">0.00</b></div>
+            <div class="hud-row"><span class="hud-label">惯性状态</span><div class="hud-track hud-track-teal"><i id="inertiaBar"></i></div><b id="inertiaValue">精准</b></div>
+            <div class="hud-foot"><span>4 ms 调度</span><span>×1.00</span><span>亚格 / 整格</span></div>
+          </div>
+
+          <p class="demo-hint reveal" style="--delay: .3s">
+            小提示：位移 = 基础距离 × 灵敏度 × 惯性增益 × 加速倍率。
+          </p>
+        </div>
+
+        <div class="demo-stage reveal" style="--delay: .16s">
+          <div class="demo-glow" aria-hidden="true"></div>
+          <div class="demo-window" data-tilt>
+            <div class="demo-bar">
+              <span class="window-dots"><i></i><i></i><i></i></span>
+              <span class="demo-bar-title">winMouseFix · demo</span>
+              <span class="demo-fps">60 fps</span>
+            </div>
+            <div class="demo-viewport" id="demoViewport">
+              <div class="demo-content" id="demoContent">
+                <div class="demo-doc-head">
+                  <span class="doc-eyebrow">FIELD NOTES · SCROLL LAB</span>
+                  <h3>滚动，是手感的延伸。</h3>
+                  <p>这是一段可以滚动的模拟内容。试着慢滚一次，再快速滑动一次，感受速度如何改变距离与滑行。</p>
+                </div>
+                <div class="demo-item"><span class="demo-index">01</span><div><h4>慢滚，刚好停在想要的位置</h4><p>低速滚动保持 1:1 的精准位移，停下时没有多余漂移。</p></div><span class="demo-tag">PRECISION</span></div>
+                <div class="demo-item"><span class="demo-index">02</span><div><h4>快滑，把意图交给惯性</h4><p>速度因子升高，位移与滑行距离自然延展，像触控板上的轻扫。</p></div><span class="demo-tag">MOMENTUM</span></div>
+                <div class="demo-item"><span class="demo-index">03</span><div><h4>持续快滑，逐步提速</h4><p>连续高速滚动时倍率逐步上升，最多 +400%，让长页面一滑到底。</p></div><span class="demo-tag">BOOST</span></div>
+                <div class="demo-item"><span class="demo-index">04</span><div><h4>慢下来，立即刹车</h4><p>出现明显变慢的滚轮格时，倍率归 1，未输出的惯性被收回，回到精准控制。</p></div><span class="demo-tag">BRAKE</span></div>
+                <div class="demo-item"><span class="demo-index">05</span><div><h4>细腻粒度，尊重每个程序</h4><p>Chromium 与 Electron 使用亚格步长，传统程序使用整格输出，手感始终自然。</p></div><span class="demo-tag">QUANTUM</span></div>
+                <div class="demo-blockquote">“不是把滚动变慢，而是把速度的变化做得更自然。”</div>
+                <div class="demo-item"><span class="demo-index">06</span><div><h4>横向、缩放、全屏，各有分寸</h4><p>水平滚轮同样平滑；Ctrl + 滚轮保持原生缩放；全屏场景可按需保持原生滚动。</p></div><span class="demo-tag">NATIVE</span></div>
+                <div class="demo-item"><span class="demo-index">07</span><div><h4>安静地待在托盘里</h4><p>开机自启、托盘暂停、管理员重启——需要的时候出现，其余时间只留下手感。</p></div><span class="demo-tag">TRAY</span></div>
+              </div>
+            </div>
+            <div class="demo-vignette" aria-hidden="true"></div>
+            <div class="demo-scrollrail" aria-hidden="true"><i id="demoThumb"></i></div>
+            <div class="demo-hint-overlay" id="demoHint">
+              <span class="demo-mouse"><i></i></span>
+              在这里滚动滚轮
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow reveal">03 / INSIDE THE ENGINE</span>
+          <h2 class="section-title reveal" style="--delay: .06s">一条更自然的<span class="gradient">输出曲线</span></h2>
+          <p class="section-sub reveal" style="--delay: .12s">离散的滚轮格，被重新编排成连续的滚动节奏。</p>
+        </div>
+
+        <div class="how-grid">
+          <div class="chart-card reveal">
+            <div class="chart-head"><span>OUTPUT CURVE</span><span>输入 → 输出</span></div>
+            <svg class="curve" viewBox="0 0 620 300" role="img" aria-label="原生滚轮阶梯曲线与平滑输出曲线对比">
+              <defs>
+                <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#c9623f"/>
+                  <stop offset="1" stop-color="#e29a3c"/>
+                </linearGradient>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#d97757" stop-opacity=".26"/>
+                  <stop offset="1" stop-color="#d97757" stop-opacity="0"/>
+                </linearGradient>
+                <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feGaussianBlur stdDeviation="6" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <g class="chart-grid" aria-hidden="true">
+                <path d="M40 52h540M40 102h540M40 152h540M40 202h540M40 252h540"/>
+                <path d="M140 24v232M240 24v232M340 24v232M440 24v232M540 24v232"/>
+              </g>
+              <path class="raw-line" d="M40 240 L110 240 L110 205 L180 205 L180 173 L250 173 L250 145 L320 145 L320 119 L390 119 L390 95 L460 95 L460 76 L530 76 L530 62 L580 62"/>
+              <path class="area" d="M40 240 C100 240 118 222 170 218 C225 214 250 184 300 176 C355 168 390 138 440 124 C490 110 530 82 580 56 L580 260 L40 260 Z"/>
+              <path class="smooth-line" d="M40 240 C100 240 118 222 170 218 C225 214 250 184 300 176 C355 168 390 138 440 124 C490 110 530 82 580 56"/>
+              <circle class="curve-dot" cx="580" cy="56" r="4"/>
+            </svg>
+            <div class="chart-legend"><span><i class="legend-raw"></i>原生滚轮</span><span><i class="legend-smooth"></i>winMouseFix</span></div>
+          </div>
+
+          <div class="steps">
+            <article class="step reveal">
+              <span class="step-num">01</span>
+              <div class="step-copy"><span class="step-kicker">CAPTURE</span><h3>捕获</h3><p>WH_MOUSE_LL 全局钩子读取滚轮，依据窗口与进程选择最合适的输出粒度。</p></div>
+            </article>
+            <article class="step reveal" style="--delay: .08s">
+              <span class="step-num">02</span>
+              <div class="step-copy"><span class="step-kicker">COMPUTE</span><h3>计算</h3><p>速度因子、惯性增益与三阶段加速，构成一条有呼吸感的滚动曲线。</p></div>
+            </article>
+            <article class="step reveal" style="--delay: .16s">
+              <span class="step-num">03</span>
+              <div class="step-copy"><span class="step-kicker">EMIT</span><h3>输出</h3><p>4 ms 平滑调度 + SendInput 标记注入，把连续的滚动节奏送到每个应用。</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section showcase-section" id="showcase">
+      <div class="container showcase-grid">
+        <div class="showcase-copy">
+          <span class="eyebrow reveal">04 / CONTROL ROOM</span>
+          <h2 class="section-title reveal" style="--delay: .06s">安静，但一切都在<span class="gradient">掌控中</span></h2>
+          <p class="section-sub reveal" style="--delay: .12s">三枚滑块，一个清爽面板。调整即时生效，设置自动保存。</p>
+          <ul class="settings-list reveal" style="--delay: .18s">
+            <li><span>平滑程度</span><b>柔顺与跟手之间</b></li>
+            <li><span>惯性强度</span><b>控制滑行距离</b></li>
+            <li><span>滚动灵敏度</span><b>每格滚动的距离</b></li>
+            <li><span>全屏选择</span><b>保持原生滚轮</b></li>
+            <li><span>托盘与自启</span><b>随时待命</b></li>
+            <li><span>排除名单</span><b>保留专属手感</b></li>
+          </ul>
+          <div class="showcase-note reveal" style="--delay: .24s"><span class="note-dot"></span>设置实时生效，关闭窗口后留在托盘继续工作。</div>
+        </div>
+
+        <div class="showcase-visual reveal" style="--delay: .1s">
+          <div class="screenshot-frame" data-tilt>
+            <img src="preview.png" alt="winMouseFix V1.0 设置界面">
+            <span class="float-badge badge-live">实时生效</span>
+            <span class="float-badge badge-save">自动保存</span>
+          </div>
+          <div class="showcase-caption">winMouseFix V1.0 · 设置面板</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <div class="cta-panel reveal">
+          <div class="cta-glow" aria-hidden="true"></div>
+          <span class="eyebrow">READY WHEN YOU ARE</span>
+          <h2>把滚轮手感，<span class="gradient">交还给手指。</span></h2>
+          <p>下载 winMouseFix V1.0，让每一次滚动都变得自然。</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary btn-lg" href="https://github.com/Dreams0/winMouseFix/releases">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="btn-icon"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 20h14"/></svg>
+              下载 V1.0
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/Dreams0/winMouseFix" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="btn-icon"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              GitHub
+            </a>
+          </div>
+          <span class="cta-meta">Windows 10 / 11 · 单文件 · MIT</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-badge"><img src="icon.png" width="30" height="30" alt=""></span>
+        <span><b>winMouseFix</b><small>V1.0 · by Dreams0</small></span>
+      </div>
+      <div class="footer-links">
+        <a href="#features">特性</a>
+        <a href="#demo">演示</a>
+        <a href="https://github.com/Dreams0/winMouseFix" target="_blank" rel="noopener">GitHub</a>
+        <a href="LICENSE">MIT License</a>
+      </div>
+      <p class="footer-copy">© 2026 Dreams0 · Built with Win32 &amp; C++20</p>
+    </div>
+  </footer>
+</body>
+</html>
